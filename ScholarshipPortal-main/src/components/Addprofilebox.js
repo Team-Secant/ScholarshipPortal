@@ -1,9 +1,10 @@
-import React,{useRef,useState} from 'react'
+import React,{useContext, useRef,useState} from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Slider from '@mui/material/Slider';
 import Cropper from 'react-easy-crop'
 import getCroppedImg from '../utils/Cropimage.js'
+import { studentcontext } from '../context/StudentState';
 
 
 const Addprofilebox = ({images,setimages}) => {
@@ -15,6 +16,8 @@ const Addprofilebox = ({images,setimages}) => {
     const [zoom,setzoom] = useState(1)
     const [croppedArea,setcroppedArea] = useState()
     const [crop,setcrop] = useState({x:0,y:0})
+    const {thisStudent} = useContext(studentcontext)
+
 
 
     const addprofile = ()=>{
@@ -57,12 +60,12 @@ const Addprofilebox = ({images,setimages}) => {
           console.log(error);
         }
       }
-
+      // "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png"
   return (
     <>
     <Box component="main" sx={{ flexGrow: 1, my:2}} className='container d-flex flex-column'>
         <div className="input-group" style={{height:"120px",width:"120px",border:"0px solid #041B36",borderRadius:"60px",boxShadow: "rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset",alignItems:"center",position:"relative"}}>
-            <img src={croppedimgsrc !== null? croppedimgsrc:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png"} className="img-fluid" alt='' style={{color:"green",position:"absolute",top:"0%",height:"120px",width:"120px",borderRadius:"60px"}}/>
+            <img src={croppedimgsrc !== null? croppedimgsrc:thisStudent.stimg !== "none"? thisStudent.stimg:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png"} className="img-fluid" alt='' style={{color:"green",position:"absolute",top:"0%",height:"120px",width:"120px",borderRadius:"60px"}}/>
             {/* <label htmlFor="" id='icon2' style={{color:"green",position:"absolute",top:"60%",left:'20%',fontSize:"0.75rem"}}>Upload Profile</label> */}
             <input style={{backgroundColor:"transparent",border:"0px",display:"none"}}  type="file" ref={inputref} className="form-control mx-1" name='profile' aria-label="profile" aria-describedby="basic-addon1" onChange={displayImage}/>
             <Button className='profilebtn' id='mybtn' onClick={addprofile}><i className="bi bi-plus-circle-fill fs-4" style={{color:"white",position:"absolute"}}></i></Button>

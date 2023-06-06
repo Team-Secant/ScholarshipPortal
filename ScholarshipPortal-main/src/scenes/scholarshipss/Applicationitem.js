@@ -8,7 +8,7 @@ import { useTheme } from '@emotion/react';
 import { applicationcontext } from '../../context/ApplicationState';
 
 
-const Applicationitem = ({item,index}) => {
+const Applicationitem = ({item,index,setdata}) => {
 
     const theme = useTheme();
 
@@ -24,7 +24,7 @@ const Applicationitem = ({item,index}) => {
         setindst(indst)
         const indsc = await fetchonescholarship(item?.scid);
         setindsc(indsc)
-        console.log(item)
+        console.log(indsc)
     }
 
     useEffect(()=>{
@@ -37,14 +37,15 @@ const Applicationitem = ({item,index}) => {
         editapplication({status:e.target.value},item?._id)
     }
 
+
   return (
     <>
     <tr style={{color:theme.palette.mode === "dark"&&theme.palette.grey[100]}}>
         <th scope="row" style={{textAlign:"center"}}>{index+1}</th>
-        <td>{indst[0]?.fname} {indst[0]?.lname}</td>
-        <td>{indst[0]?.rollno}</td>
-        <td>{indsc?.name}</td>
-        <td>{item?.date?.slice(0,10)}</td>
+        <td><a href="/" onClick={()=>{setdata(indst[0])}} data-bs-toggle="modal"  data-bs-target="#exampleModal" style={{textDecoration:"none"}}>{indst[0]?.fname !== undefined? indst[0]?.fname:"Loading..."} {indst[0]?.lname}</a></td>
+        <td>{indst[0]?.rollno !== undefined? indst[0]?.rollno:"Loading..."}</td>
+        <td>{indsc?.name !== undefined? indsc?.name:"Loading..."}</td>
+        <td>{item?.date?.slice(0,10) !== undefined? item?.date?.slice(0,10) :"Loading..."}</td>
         <td style={{width:"100px"}}>
             <FormControl>
                 <TextField

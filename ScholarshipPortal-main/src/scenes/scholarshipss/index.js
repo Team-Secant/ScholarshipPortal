@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box, useTheme } from "@mui/material";
 // import { DataGrid } from "@mui/x-data-grid";
 // import { useGetTransactionsQuery } from "state/api";
 import Header from "../../components/Header";
 import { applicationcontext } from "../../context/ApplicationState";
 import Applicationitem from "./Applicationitem";
+import StInfoModal from "../students/StInfoModal";
 // import DataGridCustomToolbar from "components/DataGridCustomToolbar";
 
 const Transactions = () => {
@@ -12,6 +13,7 @@ const Transactions = () => {
     const {fetchallapplication,allapplication} = useContext(applicationcontext)
     // const [filtervalue,setfiltervalue] = useState("0");
     // const [searchValue, setsearchValue] = useState("");
+    const [data, setdata] = useState({});
   
     // const myref = useRef(null);
     const fetchallapp = ()=>{
@@ -26,7 +28,7 @@ const Transactions = () => {
         <>
         <Box m="1.5rem 2.5rem">
             <Header title="APPLICATIONS" subtitle="Entire list of applications Student have submitted" />
-
+            <StInfoModal data={data}/>
             <div className="container px-0 my-5" style={{borderRadius:"0px",boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",height:"400px",overflowY:"scroll"}}>
                 <table className="table">
                 <thead className="table-light" style={{color:"#888989",position:"sticky",zIndex:"1",top:"0"}}>
@@ -42,7 +44,7 @@ const Transactions = () => {
                 </thead>
                 <tbody>
                 {allapplication.map((item,index)=>{
-                        return <Applicationitem item={item} index={index} key={index}/>
+                        return <Applicationitem item={item} index={index} key={index} setdata={setdata}/>
                     })
                 }
 

@@ -14,23 +14,24 @@ import {
 
 import Header from "../../components/Header"
 import { studentcontext } from "../../context/StudentState";
+import StInfoModal from "./StInfoModal";
 
 // import { useGetProductsQuery } from "./state/api";
 
 
 // coming from backend
-const Product = ({
-    fname,
-    lname,
-    stimg,
-    // description={description}
-    stbatch,
-    // rating={rating}
-    stdepart,
-    email,
-    stcgpa,
-    cnic}) => {
+const Product = ({item,setdata}) => {
 
+    // fname,
+    // lname,
+    // stimg,
+    // // description={description}
+    // stbatch,
+    // // rating={rating}
+    // stdepart,
+    // email,
+    // stcgpa,
+    // cnic
     const theme = useTheme();
     const [isExpanded, setIsExpanded] = useState(false);
     return (
@@ -44,17 +45,17 @@ const Product = ({
 
             <CardContent>
                 <div className="container" >
-                    <img className="img-fluid" src={stimg==="none"?require('../../asset/pp.jpeg'):stimg} alt="" width="100px" height="100px" style={{borderRadius:"50px",boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}/>
+                    <img className="img-fluid" src={item.stimg==="none"?require('../../asset/pp.jpeg'):item.stimg} alt="" width="100px" height="100px" style={{borderRadius:"50px",boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}/>
                 </div>
                 <Typography
                     sx={{ fontSize: 16, mt:2, fontWeight:"bolder" }}
                     color={theme.palette.secondary[400]}
                     gutterBottom
                 >
-                    {fname} {lname}
+                    {item.fname} {item.lname}
                 </Typography>
                 <Typography variant="h6" noWrap component="div">
-                    {cnic}
+                    {item.cnic}
                 </Typography>
                 {/* <Typography sx={{ mb: "1.5rem" }} color={theme.palette.secondary[400]}>
                     {Number(stcgpa).toFixed(2)}
@@ -65,16 +66,15 @@ const Product = ({
             </CardContent>
 
             <CardActions>
-                <Button
-                    variant="primary"
-                    size="small"
-                    onClick={() => setIsExpanded(!isExpanded)}
-                >
-                    {isExpanded?"See Less":"See More"}
+                <Button variant="primary" size="small" data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={()=>{setdata(item)}}>
+                    See More
                 </Button>
             </CardActions>
+        
+            
+            {/* onClick={() => setIsExpanded(!isExpanded)} */}
 
-            <Collapse
+            {/* <Collapse
                 in={isExpanded}
                 timeout="auto"
                 unmountOnExit
@@ -92,7 +92,7 @@ const Product = ({
                         Batch: {stbatch}
                     </Typography>
                 </CardContent>
-            </Collapse>
+            </Collapse> */}
         </Card>
 
     )
@@ -103,7 +103,7 @@ const Products = () => {
     
     const isNonMobile = useMediaQuery("(min-width: 1000px)");
     const {allst,fetchallstudent} = useContext(studentcontext)
-
+    const [data,setdata]=useState({});
     const [searchValue, setsearchValue] = useState("");
   const filteredstudents = allst.filter(element => {return element.fname.toLowerCase().includes(searchValue.toLowerCase()) || element.lname.toLowerCase().includes(searchValue.toLowerCase()) || element.cnic.includes(searchValue)})
 
@@ -122,6 +122,7 @@ const Products = () => {
                 <span class="input-group-text" id="basic-addon1" style={{backgroundColor:"transparent",border:"0px"}}><i class="bi bi-search"></i></span>
                 <input style={{backgroundColor:"transparent",border:"0px"}} type="text" value={searchValue} onChange={handleSearch} class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1"/>
             </div>
+            <StInfoModal data={data}/>
             {filteredstudents.length > 0 ? (
                 <Box mt="20px"
                     display="grid"
@@ -138,14 +139,8 @@ const Products = () => {
                             <Product      // destructure krke product ko pass
                                 key={index}
                                 _id={index}
-                                fname={item.fname}
-                                lname={item.lname}
-                                stimg={item.stimg}
-                                stbatch={item.stbatch}
-                                stdepart={item.stdepart}
-                                stcgpa={item.stcgpa}
-                                cnic={item.cnic}
-                                email={item.email}
+                                item={item}
+                                setdata={setdata}
                             />
                         )
                     )}

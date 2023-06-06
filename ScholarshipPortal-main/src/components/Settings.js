@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles';
+import { useTheme } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -58,6 +59,8 @@ const Settings = () => {
 
   const [value, setValue] = React.useState(0);
   const {bgcolor} = useContext(appereancecontext)
+  const theme = useTheme();
+  const { breakpoints } = theme;
   // const {fetchThisStudent} = useContext(studentcontext)
 
   const {fetchdepbystid,thisStudent,fetchThisStudent} = useContext(studentcontext)
@@ -87,7 +90,7 @@ const Settings = () => {
             <Tab sx={{alignItems:'end' ,textAlign:"end"}}  label="Change Appereance" {...a11yProps(3)} />
           </Tabs>
         </div>
-      <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex',px:10 }}>
+      <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex',px:10, [breakpoints.down("md")]: {px:4}}}>
         <div className='d-none d-md-flex my-4'>
           <Tabs orientation="vertical" variant="scrollable" value={value} onChange={handleChange} aria-label="Vertical tabs example" sx={{ borderRight: 1, borderColor: 'divider',}} >
             <Tab sx={{alignItems:'end',textAlign:"end"}}  label="Update Basic Info" {...a11yProps(0)} />

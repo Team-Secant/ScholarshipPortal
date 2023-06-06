@@ -86,10 +86,33 @@ const Dashboard = () => {
                         />
                     }
                 />
+                    <StatBox
+                        title="Total Applications"
+                        value={allapplication.length}
+                        increase=""
+                        description=""
+                        icon={
+                            <PersonAdd
+                                sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
+                            />
+                        }
+                    />
+    
+                    <StatBox
+                        title="Scholarships granted"
+                        value={approvedapp.length}
+                        increase=""
+                        description=""
+                        icon={
+                            <HowToRegIcon
+                                sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
+                            />
+                        }
+                    />
                 {/* side wala graph */}
                 <Box
                     gridColumn="span 8"
-                    gridRow="span 2"
+                    gridRow="span 1"
                     backgroundColor={theme.palette.background.alt}
                     p="1rem"
                     borderRadius="0.55rem"
@@ -114,29 +137,6 @@ const Dashboard = () => {
                         </table>
                 </Box>
 
-                <StatBox
-                    title="Total Applications"
-                    value={allapplication.length}
-                    increase=""
-                    description=""
-                    icon={
-                        <PersonAdd
-                            sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-                        />
-                    }
-                />
-
-                <StatBox
-                    title="Scholarships granted"
-                    value={approvedapp.length}
-                    increase=""
-                    description=""
-                    icon={
-                        <HowToRegIcon
-                            sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-                        />
-                    }
-                />
                 {/* ROW 2 */}
                 <Box
                     gridColumn="span 8"

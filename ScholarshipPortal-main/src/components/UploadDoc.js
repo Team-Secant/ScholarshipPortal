@@ -11,6 +11,7 @@ const UploadDoc = () => {
 
     const {bgcolor,color} = useContext(appereancecontext)
     const {thisStudent,updateStDocs,dltStDocs} = useContext(studentcontext)
+    const spinnerref = useRef();
 
     const ref1 = useRef(null);
     const ref2 = useRef(null);
@@ -55,13 +56,13 @@ const UploadDoc = () => {
     
     const submithandler = (e)=>{
         e.preventDefault();
+        spinnerref.current.classList.remove("d-none")
         const filteredImages = Object.entries(images).reduce((acc, [key, value]) => {
             if (value !== "none") {
               acc[key] = value;
             }
             return acc;
           }, {});
-          console.log(filteredImages)
 
         const filteredids =  Object.entries(filteredImages).reduce((acc, [key, value]) => {
             if (value !== "none") {
@@ -69,11 +70,10 @@ const UploadDoc = () => {
             }
             return acc;
           }, {}); 
-        console.log(filteredids)
-        console.log(filteredImages)
 
         dltStDocs(filteredids)
         updateStDocs(filteredImages)
+        spinnerref.current.classList.add("d-none")
     }
 
 
@@ -157,7 +157,15 @@ const UploadDoc = () => {
                 </Box>}  
             </div>
         </div>
-            <button type='submit' className="btn btn-success w-25 mt-2">Save</button>
+        <div className="container d-flex justify-content-center align-items-center">
+            <button className="btn btn-success d-flex justify-content-center align-items-center w-25" type="submit">
+                <div className="spinner-border spinner-border-sm text-light d-none" ref={spinnerref} role="status">
+                <span className="visually-hidden">Loading...</span>
+                </div>
+                <p className="fs-6 m-0 mx-2">Save</p>
+            </button>
+        </div>
+            {/* <button type='submit' className="btn btn-success w-25 mt-2">Save</button> */}
     </form>
       
     </>
