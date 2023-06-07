@@ -105,7 +105,7 @@ const Products = () => {
     const {allst,fetchallstudent} = useContext(studentcontext)
     const [data,setdata]=useState({});
     const [searchValue, setsearchValue] = useState("");
-  const filteredstudents = allst.filter(element => {return element.fname.toLowerCase().includes(searchValue.toLowerCase()) || element.lname.toLowerCase().includes(searchValue.toLowerCase()) || element.cnic.includes(searchValue)})
+    const filteredstudents = allst.filter(element => {return element.fname.toLowerCase().includes(searchValue.toLowerCase()) || element.lname.toLowerCase().includes(searchValue.toLowerCase()) || element.cnic.includes(searchValue)})
 
     useEffect(()=>{
         fetchallstudent();

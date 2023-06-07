@@ -5,18 +5,20 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { FormControl } from '@mui/material';
 import { useTheme } from '@emotion/react';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
 import { applicationcontext } from '../../context/ApplicationState';
 
 
-const Applicationitem = ({item,index,setdata}) => {
+const Applicationitem = ({item,index,setdata,changestatus,setstatus}) => {
 
     const theme = useTheme();
 
     const {fetchonestudent} = useContext(studentcontext)
     const {fetchonescholarship} = useContext(scholarshipcontext)
-    const {editapplication} = useContext(applicationcontext)
+    // const {editapplication} = useContext(applicationcontext)
 
-    const [statusval,setstatusval] = useState({status:item.status});
+    
     const [indst,setindst] = useState([]);
     const [indsc,setindsc] = useState([]);
     const fetchinddata = async ()=>{
@@ -30,16 +32,16 @@ const Applicationitem = ({item,index,setdata}) => {
     useEffect(()=>{
         fetchinddata();
     },[])
+    
+    const handleChange = (event) => {
+        setstatus(event.target.value);
+    };
 
-    const onValueChange = (e)=>{
-        setstatusval({status:e.target.value})
-        console.log(e.target.value)
-        editapplication({status:e.target.value},item?._id)
-    }
 
 
   return (
     <>
+    
     <tr style={{color:theme.palette.mode === "dark"&&theme.palette.grey[100]}}>
         <th scope="row" style={{textAlign:"center"}}>{index+1}</th>
         <td><a href="/" onClick={()=>{setdata(indst[0])}} data-bs-toggle="modal"  data-bs-target="#exampleModal" style={{textDecoration:"none"}}>{indst[0]?.fname !== undefined? indst[0]?.fname:"Loading..."} {indst[0]?.lname}</a></td>
@@ -47,7 +49,21 @@ const Applicationitem = ({item,index,setdata}) => {
         <td>{indsc?.name !== undefined? indsc?.name:"Loading..."}</td>
         <td>{item?.date?.slice(0,10) !== undefined? item?.date?.slice(0,10) :"Loading..."}</td>
         <td style={{width:"100px"}}>
-            <FormControl>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    value={item.status}
+                    onChange={handleChange}
+                    label="Status"
+                    >
+                    <MenuItem value="Pending" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Pending",item._id)}}>Pending</MenuItem>
+                    <MenuItem value="Approved" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Approved",item._id)}}>Approved</MenuItem>
+                    <MenuItem value="Rejected" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Rejected",item._id)}}>Rejected</MenuItem>
+                    </Select>
+                </FormControl>
+            {/* <FormControl>
                 <TextField
                     id="outlined-select-currency"
                     select
@@ -61,7 +77,7 @@ const Applicationitem = ({item,index,setdata}) => {
                     <MenuItem value="Approved">Approved</MenuItem>
                     <MenuItem value="Rejected">Rejected</MenuItem>
                 </TextField>
-            </FormControl>
+            </FormControl> */}
         </td>
     </tr>
       

@@ -166,4 +166,15 @@ router.get('/getindfaculty/:id', async (req,res)=>{
         }
 });
 
+// dlt user
+router.delete('/dltindfaculty/:id', async (req,res)=>{
+    try {
+        const facultydata = await faculty.deleteOne({_id:req.params.id});
+        res.json(facultydata);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json('Internal Server Error occured!');
+    }
+});
+
 module.exports = router;

@@ -31,7 +31,7 @@ const AddUser = () => {
 
     const spinnerref = useRef();
     const {addscholarship} = useContext(scholarshipcontext)
-    const [scholarship, setScholarship] = useState({name: '',description: '',minincome: '',mincgpa: '',sctype:"",active:Boolean,award:"",lastdate:""});
+    const [scholarship, setScholarship] = useState({name: '',description: '',minincome: '',mincgpa: '',sctype:"",active:Boolean, status:localStorage.getItem("usertype") === "faculty"?"approved":"pending", award:"",lastdate:""});
 
     let navigate = useNavigate();
 
@@ -94,7 +94,7 @@ const AddUser = () => {
                 </TextField>
             </FormControl>
 
-            <FormControl>
+            {localStorage.getItem("usertype") === "faculty"&&<FormControl>
                 <TextField
                     id="outlined-select-currency"
                     select
@@ -105,7 +105,7 @@ const AddUser = () => {
                     <MenuItem value={true}>Yes</MenuItem>
                     <MenuItem value={false}>No</MenuItem>
                 </TextField>
-            </FormControl>
+            </FormControl>}
 
             <FormControl>
                 <TextField

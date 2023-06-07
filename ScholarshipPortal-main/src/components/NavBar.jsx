@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     LightModeOutlined,
     DarkModeOutlined,
@@ -31,13 +31,52 @@ const NavBar = ({isSidebarOpen, setIsSidebarOpen }) => {
     const theme = useTheme()
     const navigate = useNavigate();
 
-    const [anchorEl, setAnchorEl] = useState(null);
-    const isOpen = Boolean(anchorEl);
-    const handleClick = (event) => setAnchorEl(event.currentTarget);
+    const [thisfaculty, setthisfaculty] = useState();
+    const fetchThisfaculty = async ()=>{
+
+        const url = `http://localhost:5000/faculty/getfaculty`
+      
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'auth-token': localStorage.getItem('token')
+            },
+        });
+        const json = await response.json()
+        setthisfaculty(json)
+  }
+
+    useEffect(()=>{
+        fetchThisfaculty();
+    })
+
+    
+
+    // const [anchorEl, setAnchorEl] = useState(null);
+    // const isOpen = Boolean(anchorEl);
+    // const handleClick = (event) => setAnchorEl(event.currentTarget);
+
     const handleClose = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('usertype');
         navigate('/login')
+    }
+
+    const deactivate = async ()=>{
+            const url = `http://localhost:5000/faculty/dltindfaculty/${thisfaculty._id}`
+          
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                }
+            });
+            const json = await response.json()
+            console.log(json)
+            localStorage.removeItem('token');
+            localStorage.removeItem('usertype');
+            navigate('/login')
     }
 
     return (
@@ -64,6 +103,7 @@ const NavBar = ({isSidebarOpen, setIsSidebarOpen }) => {
                         </IconButton>
                     </FlexBetween>
                 </FlexBetween>
+                
 
 
                 {/* RIGHT SIDE */}
@@ -81,42 +121,11 @@ const NavBar = ({isSidebarOpen, setIsSidebarOpen }) => {
                     </IconButton>
 
                     <FlexBetween>
-                        <Button
-                            onClick={handleClick}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                textTransform: "none",
-                                gap: "1rem",
-                            }}
-                        >
-                            <Box textAlign="left">
-                                <Typography
-                                    fontWeight="bold"
-                                    fontSize="0.85rem"
-                                    sx={{ color: theme.palette.secondary[100] }}
-                                >
-                                </Typography>
-                                <Typography
-                                    fontSize="0.75rem"
-                                    sx={{ color: theme.palette.secondary[200] }}
-                                >
-                                    {/* {user.occupation} */}
-                                </Typography>
-                            </Box>
-                            <ArrowDropDownOutlined
-                                sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
-                            />
-                        </Button>
-                        <Menu
-                            anchorEl={anchorEl}
-                            open={isOpen}
-                            onClose={handleClose}
-                            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                        >
-                            <MenuItem onClick={handleClose}>Log Out</MenuItem>
-                        </Menu>
+                    <a className="btn mx-1" href="/" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><i className="bi bi-three-dots-vertical"></i></a>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><button className="dropdown-item" onClick={handleClose}>Logout</button></li>
+                        <li><button className="dropdown-item" onClick={deactivate}>Deactivate Account</button></li>
+                    </ul>
                     </FlexBetween>
                 </FlexBetween>
             </Toolbar>

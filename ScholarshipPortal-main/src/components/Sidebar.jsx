@@ -50,6 +50,10 @@ const navItems = [
         icon: <AdminPanelSettingsOutlined />,
     },
     {
+        text: "Scholarship Requests",
+        icon: <AddTaskIcon />,
+    },
+    {
         text: "Add Scholarship",
         icon: <AddTaskIcon />,
     },
@@ -71,7 +75,11 @@ const navItemsfornotadmin = [
     {
         text: "Applications",
         icon: <ReceiptLongOutlined />,
-    }
+    },
+    {
+        text: "Add Scholarship",
+        icon: <AddTaskIcon />,
+    },
 ];
 
 // passed these properties from layout page
@@ -141,7 +149,7 @@ const Sidebar = ({ user,drawerWidth,isSidebarOpen,setIsSidebarOpen,isNonMobile }
                                 );
                             }
 
-                            const lcText = (text==="Add Scholarship"||text==="Add Announcement")? text.slice(4).toLowerCase():text.toLowerCase()
+                            const lcText = (text==="Add Scholarship"||text==="Add Announcement")? text.slice(4).toLowerCase():(text==="Scholarship Requests")? text.slice(12).toLowerCase():text.toLowerCase()
 
                             return (
                                 <ListItem key={text} disablePadding>

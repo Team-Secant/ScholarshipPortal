@@ -42,6 +42,7 @@ import '../App.css';
 import { appereancecontext } from '../context/Appereancestate';
 import { studentcontext } from '../context/StudentState';
 import { scholarshipcontext } from '../context/Scholarshipstate';
+import Confirmationmodal from './Confirmationmodal';
 
 const drawerWidth = 250;
 
@@ -237,13 +238,14 @@ const SideNav = () => {
                         <NotificationsIcon />
                       </Badge>
                     </IconButton> */}
-
+                    <Confirmationmodal stid={thisStudent._id}/>
                     <div className="dropdown">
                       <button className="btn text-light dropdown-toggle mx-2 my-2" style={{border:"0px transparent"}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {(thisStudent.stimg==="none" || thisStudent.stimg==="") ?<AccountCircle/>:<img style={{borderRadius:"16px"}} src={thisStudent.stimg} alt="" width="32px" height="32px"/>}
                       </button>
                       <ul className="dropdown-menu">
                         <li><button className="dropdown-item" onClick={logouthandle}>Logout</button></li>
+                        <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#confirmdlt">Deactivate account</button></li>
                       </ul>
                     </div>
                   </Box>

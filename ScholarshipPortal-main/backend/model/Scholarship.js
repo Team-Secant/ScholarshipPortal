@@ -31,6 +31,10 @@ const scholarshipScehma = new mongoose.Schema({
         required: true,
         default:true
     },
+    status: {
+        type: String,
+        required: true,
+    },
     lastdate:{
         type: String,
         required: true,

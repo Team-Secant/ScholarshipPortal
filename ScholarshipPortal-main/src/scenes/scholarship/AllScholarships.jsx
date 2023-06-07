@@ -57,7 +57,7 @@ const AllUsers = () => {
                 </TableHead>
 
                 <TableBody>
-                    {allscholarship.map((currElem) => {
+                    {allscholarship.filter((each)=>{return each.status==="approved"}).map((currElem) => {
                         return (
                             <TableRow key={currElem._id} className='tablerow'>
                                 <TableCell>{currElem.name}</TableCell>
@@ -69,10 +69,10 @@ const AllUsers = () => {
                                 <TableCell>{currElem.award}</TableCell>
                                 <TableCell>{currElem.lastdate}</TableCell>
 
-                                <TableCell>
+                                {localStorage.getItem("usertype") === "faculty"&&<TableCell>
                                     <Button sx={{my:2}} color="primary" variant="contained" component={NavLink} to={`edit/${currElem._id}`}>Edit</Button> {/* change it to currElem.id to use JSON Server */}
                                     <Button color="secondary" variant="contained" onClick={() => deleteScholarshipData(currElem._id)}>Delete</Button> {/* change it to user.id to use JSON Server */}
-                                </TableCell>
+                                </TableCell>}
 
                             </TableRow>
                         )

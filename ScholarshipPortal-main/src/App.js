@@ -35,6 +35,8 @@ import ScholarShipAll from "./scenes/scholarship/AllScholarships"
 import ScholarShipAdd from "./scenes/scholarship/AddScholarship"
 import ScholarShipEdit from "./scenes/scholarship/EditScholarship"
 
+import PendingSc from "./scenes/ScApproval/PendingSc"
+
 import AddAnnoucement from "./scenes/Annoucement/AddAnnoucement"
 import AllAnnoucement from "./scenes/Annoucement/AllAnnoucement"
 import EditAnnoucement from "./scenes/Annoucement/EditAnnoucement"
@@ -89,6 +91,8 @@ function App() {
                 <Route path="/admindashboard/announcement" element={<AllAnnoucement />} />
                 <Route path="/admindashboard/announcement/add" element={<AddAnnoucement />} />
                 <Route path="/admindashboard/announcement/edit/:id" element={<EditAnnoucement />} />
+
+                <Route path="/admindashboard/requests"  element={<PendingSc/>}/>
             </Route>
 
               <Route path="/signup" element={<Signup/>}/>         

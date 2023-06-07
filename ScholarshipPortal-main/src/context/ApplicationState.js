@@ -49,18 +49,23 @@ const ApplicationState = (props) => {
         console.log(json)
   }
   
-  const editapplication = async (applicationitem,id)=>{
+  const editapplication = async (appstatus,id)=>{
     const url = `${commonRoute}/updateapplication/${id}`
-      
+      try { 
         const response = await fetch(url, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(applicationitem)
+            body: JSON.stringify({status: appstatus})
         });
         const json = await response.json()
         console.log(json)
+        return true
+      } catch (error) {
+        console.log(error)
+        return false
+      }
   }
   
   const dltapplication = async (id)=>{

@@ -179,6 +179,27 @@ const [allst,setallst] = useState([]);
         console.log(json)
   }
 
+  const dltindst = async (stid)=>{
+
+    try {
+      const url = `${commonRoute}/dltindstudent/${stid}`
+    
+      const response = await fetch(url, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+      });
+      const json = await response.json()
+      console.log(json)
+      return true
+      
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
+
   const stlogin = (email,signinsubmit)=>{
     const domain = email.split('@')
     if(domain[1] === 'cloud.neduet.edu.pk'){
@@ -227,7 +248,7 @@ const [allst,setallst] = useState([]);
   
 
   return (
-    <studentcontext.Provider value={{thisStudent,depinfo,fetchThisStudent,updateThisStudent,updatedepinfo,updateStDocs,dltStDocs,stlogin,stcredential,setstcredential,fetchallstudent,allst,fetchonestudent,fetchdepbystid,notallowed,checkinfofilled}}>
+    <studentcontext.Provider value={{thisStudent,depinfo,fetchThisStudent,updateThisStudent,updatedepinfo,updateStDocs,dltStDocs,stlogin,stcredential,setstcredential,fetchallstudent,allst,fetchonestudent,fetchdepbystid,notallowed,checkinfofilled,dltindst}}>
         {props.children}
     </studentcontext.Provider>
   )
