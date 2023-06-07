@@ -8,7 +8,8 @@ const {cloudinary} = require('../cloudinary')
 const dependant = require('../model/StDependant');
 
 
-const fetchuser = require('../middleware/fetchuserid')
+const fetchuser = require('../middleware/fetchuserid');
+const { fabClasses } = require('@mui/material');
 
 const jwtseckey = `${process.env.JWT_SECRET_KEY}`;
 
@@ -155,11 +156,13 @@ router.patch('/editstudent',[
                     stcgpa: req.body.stcgpa,
                     email: req.body.email,
                 })
+                acknowledged=true
                 res.json({acknowledged,result})
                 
             } catch (error) {
+                acknowledged=false
                 console.log(error);
-                return res.status(500).json('Internal Server Error occured!');
+                return res.status(500).json(acknowledged,'Internal Server Error occured!');
             }
         }
     });
@@ -193,11 +196,12 @@ router.patch('/updatestdocs',fetchuser, async (req,res)=>{
                 });
                 }
             success = true;
-            res.json(success)
+            res.status(200).json(success,"Docs Updated Successfully");
                 
             } catch (error) {
                 console.log(error);
-                return res.status(500).json('Internal Server Error occured!');
+                success = false
+                return res.status(500).json(success,'Internal Server Error occured!');
             }
         }
     });
@@ -223,11 +227,12 @@ router.delete('/dltdocs',fetchuser, async (req,res)=>{
                 });
             }
         success = true;
-        res.json("Images deleted from cloudinary with status: ",success)
+        res.status(200).json(success,"Images deleted from cloudinary")
             
         } catch (error) {
             console.log(error);
-            return res.status(500).json('Internal Server Error occured!');
+            success = false
+            return res.status(500).json(success,'Internal Server Error occured!');
         }
     }
 });

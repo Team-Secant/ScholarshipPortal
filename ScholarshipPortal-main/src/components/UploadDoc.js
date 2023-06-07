@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import { appereancecontext } from '../context/Appereancestate';
 import { studentcontext } from '../context/StudentState';
 import Addprofilebox from './Addprofilebox';
+import {toast } from 'react-toastify';
+
 // import Alert from '@mui/material/Alert';
 // import Button from '@mui/material/Button';
 
@@ -49,12 +51,13 @@ const UploadDoc = () => {
             })
 
         }else{
-            alert("Only jpg/jpeg and png files are allowed!");
+            toast.error("Only JPG/JPEG and PNG files are Allowed!")
+            event.target.value = "";
         }   
         console.log(images)
     }
     
-    const submithandler = (e)=>{
+    const submithandler = async (e)=>{
         e.preventDefault();
         spinnerref.current.classList.remove("d-none")
         const filteredImages = Object.entries(images).reduce((acc, [key, value]) => {
@@ -71,8 +74,14 @@ const UploadDoc = () => {
             return acc;
           }, {}); 
 
-        dltStDocs(filteredids)
-        updateStDocs(filteredImages)
+        var check1 = await dltStDocs(filteredids)
+        var check2 = await updateStDocs(filteredImages)
+        if(check1.success && check2.success){
+            toast.success("Documents Uploaded Successfully")
+        }
+        else{
+            toast.success("Some error occurred. Please try again!")
+        }
         spinnerref.current.classList.add("d-none")
     }
 

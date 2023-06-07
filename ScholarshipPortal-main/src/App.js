@@ -44,6 +44,8 @@ import AnnouncementState from './context/AnnouncementState';
 import ScholarshipState from './context/Scholarshipstate';
 import ApplicationState from './context/ApplicationState';
 import PageNotExist from './components/PageNotExist';
+import {ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -53,6 +55,7 @@ function App() {
 
   return (
     <>
+    <ToastContainer position="bottom-right" autoClose={5000} pauseOnHover theme="light"/>
     <ApplicationState>
     <ScholarshipState>
     <AnnouncementState>

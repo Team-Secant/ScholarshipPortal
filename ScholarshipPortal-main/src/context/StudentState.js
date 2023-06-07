@@ -1,5 +1,6 @@
 
 import {createContext, React,  useState } from "react";
+import { toast } from 'react-toastify';
 const studentcontext = createContext();
 
 const StudentState = (props) => {
@@ -102,7 +103,7 @@ const [allst,setallst] = useState([]);
             body: JSON.stringify(updatedinfo)
         });
         const json = await response.json()
-        localStorage.setItem("ack",json.acknowledged)
+        return json
   }
 
   const updatedepinfo = async (updatedinfo,id)=>{
@@ -117,7 +118,7 @@ const [allst,setallst] = useState([]);
             body: JSON.stringify(updatedinfo)
         });
         const json = await response.json()
-        localStorage.setItem("ack",json.acknowledged)
+        return json
   }
 
   const fetchdepbystid = async (stid)=>{
@@ -161,7 +162,7 @@ const [allst,setallst] = useState([]);
             body: JSON.stringify(docs)
         });
         const json = await response.json()
-        console.log(json)
+       return json
   }
   const dltStDocs = async (docsid)=>{
 
@@ -176,7 +177,7 @@ const [allst,setallst] = useState([]);
             body: JSON.stringify(docsid)
         });
         const json = await response.json()
-        console.log(json)
+        return json
   }
 
   const dltindst = async (stid)=>{
@@ -206,7 +207,8 @@ const [allst,setallst] = useState([]);
       signinsubmit();
     }
     else{
-      alert("please use correct email address")
+      // alert("please use correct email address")
+      toast.error("Please use correct email address!")
     }
   }
 

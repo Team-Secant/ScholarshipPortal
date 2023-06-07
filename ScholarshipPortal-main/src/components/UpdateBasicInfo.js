@@ -4,13 +4,15 @@ import { appereancecontext } from '../context/Appereancestate';
 import { studentcontext } from '../context/StudentState';
 import TextField from "@mui/material/TextField";
 import Alert from '@mui/material/Alert';
+import {toast } from 'react-toastify';
+
 
 const UpdateBasicInfo = () => {
 
     const {bgcolor,color} = useContext(appereancecontext)
     const {thisStudent,updateThisStudent} = useContext(studentcontext)
-    const myref = useRef();
-    const myref2 = useRef();
+    // const myref = useRef();
+    // const myref2 = useRef();
 
     const [updatedinfo,setupdatedinfo] = useState(
     {"fname":thisStudent.fname,
@@ -29,32 +31,22 @@ const UpdateBasicInfo = () => {
     setupdatedinfo({...updatedinfo, [e.target.name]:e.target.value})
   }
 
-  const updatestinfo = (e)=>{
+  const updatestinfo = async (e)=>{
     e.preventDefault();
-    updateThisStudent(updatedinfo);
-    if(localStorage.getItem("ack") === "false"){
-        myref.current.classList.remove("d-none")
-        setTimeout(() => {
-            myref.current.classList.add("d-none")
-        }, 1000);
-        clearTimeout();
-        localStorage.removeItem("ack")
-
+    var check = await updateThisStudent(updatedinfo);
+    console.log(check)
+    if(check.acknowledged === true){
+        toast.success("Your Information has been Successfully Updated!")
     }
     else{
-        myref2.current.classList.remove("d-none")
-        setTimeout(() => {
-          myref2.current.classList.add("d-none")
-        }, 1000);
-        clearTimeout();
-        localStorage.removeItem("ack")
+        toast.error("Some Error occurred. Please try again later!")
     }
   }
 
   return (
     <>
-    <Alert className='d-none' ref={myref} severity="success">Your Information has been Successfully Updated!</Alert>
-    <Alert className='d-none' ref={myref2}  severity="error">Some Error occurred. Please try again later!</Alert>
+    {/* <Alert className='d-none' ref={myref} severity="success">Your Information has been Successfully Updated!</Alert>
+    <Alert className='d-none' ref={myref2}  severity="error">Some Error occurred. Please try again later!</Alert> */}
     <h3 className='text-center mx-2 my-3'><span className="badge" style={{backgroundColor:bgcolor,color:color,boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px"}}>Update Basic Information</span></h3>
     <form onSubmit={updatestinfo} className="container">
         <div className="row d-flex justify-content-center align-items-start">
