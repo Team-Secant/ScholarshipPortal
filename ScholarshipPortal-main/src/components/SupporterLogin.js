@@ -9,6 +9,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import { Alert, Typography } from "@mui/material";
 import { useNavigate,NavLink } from 'react-router-dom'
+import {toast } from 'react-toastify';
 
 function SupporterLogin({usertype}) {
 
@@ -49,11 +50,7 @@ function SupporterLogin({usertype}) {
     }
     else{
       spinnerref.current.classList.add("d-none")
-      ssalertref.current.classList.remove("d-none")
-          setTimeout(() => {
-            ssalertref.current.classList.add("d-none")
-          }, 2000);
-          clearTimeout();
+      toast.error("Please Enter Correct Credentials!")
     }
     
   }
@@ -132,7 +129,7 @@ function SupporterLogin({usertype}) {
         
                 </Typography>
 
-                <Alert className='d-none' ref={ssalertref} severity="error">Please Enter Correct Credentials!</Alert>
+                {/* <Alert className='d-none' ref={ssalertref} severity="error">Please Enter Correct Credentials!</Alert> */}
 
                 <div className="d-flex flex-column my-2">
                   <div className="container d-flex justify-content-center align-items-center">

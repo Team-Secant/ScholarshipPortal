@@ -14,7 +14,8 @@ const dependant = require('../model/StDependant');
 const generateVerificationToken = require('../utils/auth')
 const sendVerificationEmail = require('../helpers/Sendemail')
 
-const fetchuser = require('../middleware/fetchuserid')
+const fetchuser = require('../middleware/fetchuserid');
+const { fabClasses } = require('@mui/material');
 
 const jwtseckey = `${process.env.JWT_SECRET_KEY}`;
 
@@ -178,6 +179,49 @@ router.post('/login', [
 });
 
 // edit userdetails 
+router.patch('/editstudent',[
+    body('caption','caption length is too short').isLength({min:1}),
+    ],fetchuser, async (req,res)=>{
+        let acknowledged = false
+        const error = validationResult(body);
+        if(!error.isEmpty()){
+            return res.status(400).json({success, error:'Please enter details correctly'});
+        }
+        else{
+            try {
+                const studentdetails = await student.findById(req.user.id)
+                const result = await studentdetails.updateOne({
+                    cao: req.body.cao,
+                    fname: req.body.fname,
+                    lname: req.body.lname,
+                    stimg: req.body.stimg,
+                    province: req.body.province,
+                    district: req.body.district,
+                    resadd: req.body.resadd,
+                    peradd: req.body.peradd,
+                    fatherstat: req.body.fatherstat,
+                    motherstat: req.body.motherstat,
+                    rollno: req.body.rollno,
+                    cnic: req.body.cnic,
+                    contact: req.body.contact,
+                    sttype: req.body.sttype,
+                    stdepart: req.body.stdepart,
+                    stbatch: req.body.stbatch,
+                    stdegree: req.body.stdegree,
+                    stsem: req.body.stsem,
+                    styear: req.body.styear,
+                    stcgpa: req.body.stcgpa,
+                    email: req.body.email,
+                })
+                acknowledged=true
+                res.json({acknowledged,result})
+                
+            } catch (error) {
+                acknowledged=false
+                console.log(error);
+                return res.status(500).json(acknowledged,'Internal Server Error occured!');
+            }
+
 router.patch('/editstudent', [
     body('caption', 'caption length is too short').isLength({
         min: 1
@@ -261,6 +305,13 @@ router.patch('/updatestdocs', fetchuser, async (req, res) => {
                 });
             }
             success = true;
+            res.status(200).json(success,"Docs Updated Successfully");
+                
+            } catch (error) {
+                console.log(error);
+                success = false
+                return res.status(500).json(success,'Internal Server Error occured!');
+            }
             res.json(success)
 
         } catch (error) {
@@ -292,12 +343,18 @@ router.delete('/dltdocs', fetchuser, async (req, res) => {
                     }
                 });
             }
+
+        success = true;
+        res.status(200).json(success,"Images deleted from cloudinary")
+            
             success = true;
             res.json("Images deleted from cloudinary with status: ", success)
 
+
         } catch (error) {
             console.log(error);
-            return res.status(500).json('Internal Server Error occured!');
+            success = false
+            return res.status(500).json(success,'Internal Server Error occured!');
         }
     }
 });
@@ -341,6 +398,16 @@ router.get('/getindstudent/:id', async (req, res) => {
     }
 });
 // dlt user
+router.delete('/dltindstudent/:id', async (req,res)=>{
+    let success = false
+        try {
+            const studentdata = await student.deleteOne({_id:req.params.id});
+            success = true
+            res.json({success:success,studentdata});
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({success:success,msg:'Internal Server Error occured!'});
+        }
 router.delete('/dltindstudent/:id', async (req, res) => {
     try {
         const studentdata = await student.deleteOne({

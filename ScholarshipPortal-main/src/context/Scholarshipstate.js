@@ -61,6 +61,26 @@ const ScholarshipState = (props) => {
         const json = await response.json()
         console.log(json)
   }
+
+  const updatestatus = async (scstatus,id)=>{
+    const url = `${commonRoute}/updatescstatus/${id}`
+      try {
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({status: scstatus})
+        });
+        const json = await response.json()
+        console.log(json)
+        return true
+        
+      } catch (error) {
+        console.log(error)
+        return false
+      }
+  }
   
   const dltscholarship = async (id)=>{
     const url = `${commonRoute}/deletescholarship/${id}`
@@ -75,7 +95,7 @@ const ScholarshipState = (props) => {
         console.log(json)
   }
   return (
-    <scholarshipcontext.Provider value={{allscholarship,fetchallscholarship,addscholarship,editscholarship,dltscholarship,fetchonescholarship}}>
+    <scholarshipcontext.Provider value={{allscholarship,fetchallscholarship,addscholarship,editscholarship,dltscholarship,fetchonescholarship,updatestatus}}>
         {props.children}
     </scholarshipcontext.Provider>
   )

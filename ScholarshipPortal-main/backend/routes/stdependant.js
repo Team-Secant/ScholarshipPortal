@@ -44,12 +44,13 @@ router.patch('/updatedependant/:id', async (req,res)=>{
     try {
         const admindependant = await dependant.findById(req.params.id)
         const result = await admindependant.updateOne(req.body)
-        ack = true
-        res.json({acknowledged: acknowledged, result:result})
+        acknowledged = true
+        res.json({acknowledged:acknowledged, result:result})
         
     } catch (error) {
         console.log(error);
-        return res.status(500).json('Internal Server Error occured!');
+        acknowledged = false
+        return res.status(500).json({acknowledged:acknowledged},'Internal Server Error occured!');
     }
        
 });

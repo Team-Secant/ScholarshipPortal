@@ -35,6 +35,8 @@ import ScholarShipAll from "./scenes/scholarship/AllScholarships"
 import ScholarShipAdd from "./scenes/scholarship/AddScholarship"
 import ScholarShipEdit from "./scenes/scholarship/EditScholarship"
 
+import PendingSc from "./scenes/ScApproval/PendingSc"
+
 import AddAnnoucement from "./scenes/Annoucement/AddAnnoucement"
 import AllAnnoucement from "./scenes/Annoucement/AllAnnoucement"
 import EditAnnoucement from "./scenes/Annoucement/EditAnnoucement"
@@ -42,6 +44,8 @@ import AnnouncementState from './context/AnnouncementState';
 import ScholarshipState from './context/Scholarshipstate';
 import ApplicationState from './context/ApplicationState';
 import PageNotExist from './components/PageNotExist';
+import {ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Emailverification from './components/Emailverification';
 
 function App() {
@@ -52,6 +56,7 @@ function App() {
 
   return (
     <>
+    <ToastContainer position="bottom-right" autoClose={5000} pauseOnHover theme="light"/>
     <ApplicationState>
     <ScholarshipState>
     <AnnouncementState>
@@ -91,6 +96,8 @@ function App() {
                 <Route path="/admindashboard/announcement" element={<AllAnnoucement />} />
                 <Route path="/admindashboard/announcement/add" element={<AddAnnoucement />} />
                 <Route path="/admindashboard/announcement/edit/:id" element={<EditAnnoucement />} />
+
+                <Route path="/admindashboard/requests"  element={<PendingSc/>}/>
             </Route>
 
               <Route path="/signup" element={<Signup/>}/>         

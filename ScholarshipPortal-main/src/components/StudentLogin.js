@@ -10,6 +10,8 @@ import IconButton from "@mui/material/IconButton";
 import { Alert, Typography } from '@mui/material';
 import { useNavigate, NavLink } from 'react-router-dom'
 import { studentcontext } from '../context/StudentState';
+import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 function StudentLogin() {
 
@@ -51,11 +53,13 @@ function StudentLogin() {
         }
         else{
           spinnerref.current.classList.add("d-none")
-          alertref.current.classList.remove("d-none")
-          setTimeout(() => {
-            alertref.current.classList.add("d-none")
-          }, 2000);
-          clearTimeout();
+          toast.error("Please Enter Correct Credentials!");
+          // toast.error("Please Enter Correct Credentials!");
+          // alertref.current.classList.remove("d-none")
+          // setTimeout(() => {
+          //   alertref.current.classList.add("d-none")
+          // }, 2000);
+          // clearTimeout();
         }
   }
 
@@ -80,7 +84,7 @@ function StudentLogin() {
         <div className="form-group" style={{height: "290px", overflowY: "scroll"}}>
           <div className="container d-flex justify-content-start flex-column px-5 mt-2">
 
-              <Alert className='d-none' ref={alertref} severity="error">Please Enter Correct Credentials!</Alert>
+              {/* <Alert className='d-none' ref={alertref} severity="error">Please Enter Correct Credentials!</Alert> */}
 
               <label className="fs-6 mb-1">CNIC:</label>
               <TextField

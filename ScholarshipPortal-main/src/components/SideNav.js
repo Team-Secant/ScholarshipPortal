@@ -35,13 +35,12 @@ import {
   Outlet
 } from "react-router-dom";
 import '../App.css';
-// import Announcement from './Announcement';
-// import AvailableScholarship from './AvailableScholarship';
-// import AppliedScholarship from './AppliedScholarship';
-// import Settings from './Settings';
 import { appereancecontext } from '../context/Appereancestate';
 import { studentcontext } from '../context/StudentState';
 import { scholarshipcontext } from '../context/Scholarshipstate';
+import Confirmationmodal from './Confirmationmodal';
+// import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const drawerWidth = 250;
 
@@ -215,7 +214,7 @@ const SideNav = () => {
                   <Typography variant="h4" noWrap component="div" sx={{ display: { xs: 'none', sm: 'flex', md: 'flex' } }} style={{fontWeight:"bolder"}}>
                       Student Dashboard
                   </Typography>
-                  
+                  {/* <ToastContainer position="bottom-right" autoClose={5000} pauseOnHover theme="light"/> */}
                   <Search>
                     <SearchIconWrapper>
                       <SearchIcon />
@@ -237,13 +236,14 @@ const SideNav = () => {
                         <NotificationsIcon />
                       </Badge>
                     </IconButton> */}
-
+                    <Confirmationmodal stid={thisStudent._id}/>
                     <div className="dropdown">
                       <button className="btn text-light dropdown-toggle mx-2 my-2" style={{border:"0px transparent"}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {(thisStudent.stimg==="none" || thisStudent.stimg==="") ?<AccountCircle/>:<img style={{borderRadius:"16px"}} src={thisStudent.stimg} alt="" width="32px" height="32px"/>}
                       </button>
                       <ul className="dropdown-menu">
                         <li><button className="dropdown-item" onClick={logouthandle}>Logout</button></li>
+                        <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#confirmdlt">Deactivate account</button></li>
                       </ul>
                     </div>
                   </Box>

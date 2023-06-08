@@ -39,6 +39,20 @@ router.patch('/updatescholarship/:id', async (req,res)=>{
     }
        
 });
+// update scholarship status
+router.patch('/updatescstatus/:id', async (req,res)=>{
+
+    try {
+        const adminscholarship = await scholarship.findById(req.params.id)
+        const result = await adminscholarship.updateOne({status: req.body.status})
+        res.json(result)
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json('Internal Server Error occured!');
+    }
+       
+});
 // fetch scholarship
 router.get('/fetchscholarship', async (req,res)=>{
 

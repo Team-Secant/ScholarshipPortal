@@ -21,7 +21,7 @@ function Supporters() {
         <div className="btn-group btn-group-toggle" data-toggle="buttons" >
           <button className="btn mx-1" style={{backgroundColor:"#0F8A90", color:"white"}} disabled={usertype==="faculty"} onClick={()=>setusertype("faculty")}>Faculty Member</button>
           <button className="btn" style={{backgroundColor:"#0F8A90", color:"white"}} disabled={usertype==="alumni"} onClick={()=>setusertype("alumni")}>Alumni</button>
-          <button className="btn mx-1" style={{backgroundColor:"#0F8A90", color:"white"}} disabled={usertype==="othermember"} onClick={()=>setusertype("othermember")}>Other Person</button>
+          {/* <button className="btn mx-1" style={{backgroundColor:"#0F8A90", color:"white"}} disabled={usertype==="othermember"} onClick={()=>setusertype("othermember")}>Other Person</button> */}
         </div>
       </div>
       {location.pathname === "/login"&&<SupporterLogin usertype={usertype}/>}
@@ -29,7 +29,7 @@ function Supporters() {
       <>
       {usertype==="faculty"&&<FacultySignUp usertype={usertype}/>}
       {usertype==="alumni"&&<AlumniSignUp usertype={usertype}/>}
-      {usertype==="othermember"&&<OtherPersonSignUp usertype={usertype}/>}
+      {/* {usertype==="othermember"&&<OtherPersonSignUp usertype={usertype}/>} */}
       </>
       }
   </div>
