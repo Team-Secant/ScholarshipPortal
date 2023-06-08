@@ -34,21 +34,21 @@ export default function EmailVerification() {
                 }}>
 
                 <Grid item xs={12} sm={12} md={6} lg={6} xl={6} style={{ position: "relative" }}>
-                    <img width={400} src={"Shape1"} alt='' style={{ position: "absolute", top: 60 }} />
+                    <img width={600} src={require('../asset/verify.png')} alt=''/>
                     {/* <img width={210} src={Orders} alt='' style={{ position: "absolute", left: 300, zIndex: 1000 }} /> */}
-                    <img width={500} src={"Man"} alt='' className="image" />
-                    <img width={400} src={"Shape2"} alt='' style={{ position: "absolute", top: 305 }} />
+                    {/* <img width={500} src={"Man"} alt='' className="image" />
+                    <img width={400} src={"Shape2"} alt='' style={{ position: "absolute", top: 305 }} /> */}
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                    <Card style={{ boxShadow: "0px 0px 12px 9px rgb(161 151 151 / 15%)", borderRadius: "10px", padding: "20px 0 40px 0" }}>
+                    <Card style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", borderRadius: "10px", padding: "20px 0 40px 0" }}>
                         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <img width={60} src={"Logo"} alt="" />
+                            <img width={100} src={require('../asset/NEDLogo.png')} alt="" />
                         </Box>
                         <Typography textAlign="center" variant="h5" marginTop="20px" marginBottom="20px">{message}</Typography>
                         <Box sx={{ textAlign: "center" }}>
                             <Link to="/login" style={{ textDecoration: "none" }}>
-                                <Button variant="contained" style={{ fontSize: 14, height: 35, backgroundColor: "#37AB73", boxShadow:"none" }}>
+                                <Button variant="contained" style={{ fontSize: 14, height: 35, backgroundColor: "#139fa6", boxShadow:"none",color:"white" }}>
                                     back to login
                                 </Button>
                             </Link>

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { studentcontext } from '../context/StudentState'
 
-const AvailableScholarshipitem = ({item,index,handlemodaldetails,filtervalue,notallowed}) => {
+const AvailableScholarshipitem = ({item,index,handlemodaldetails,filtervalue,notallowed,appliedlenght}) => {
 
   const [hover,sethover] = useState(false)
   const {thisStudent} = useContext(studentcontext)
@@ -17,7 +17,7 @@ const AvailableScholarshipitem = ({item,index,handlemodaldetails,filtervalue,not
         <td>{item.mincgpa}</td>
         <td>{item.award}</td>
         <td>{item.lastdate.slice(0,10)}</td>
-        <td><button className="btn btn-sm" disabled={thisStudent.stcgpa<=item.mincgpa || notallowed} style={{border:"0px"}}  onClick={()=>handlemodaldetails(item)} onMouseOver={()=>sethover(true)} onMouseOut={()=>sethover(false)}><i className={`bi ${hover?"bi-arrow-right-circle-fill":"bi-arrow-right-circle"} fs-5`} id='bi'></i></button></td>
+        <td><button className="btn btn-sm" disabled={thisStudent.stcgpa<=item.mincgpa || notallowed || appliedlenght.length>0} style={{border:"0px"}}  onClick={()=>handlemodaldetails(item)} onMouseOver={()=>sethover(true)} onMouseOut={()=>sethover(false)}><i className={`bi ${hover?"bi-arrow-right-circle-fill":"bi-arrow-right-circle"} fs-5`} id='bi'></i></button></td>
     </tr>}
     {(filtervalue==="0")&&<tr>
     <th scope="row" style={{textAlign:"center"}}>{index+1}</th>
@@ -28,7 +28,7 @@ const AvailableScholarshipitem = ({item,index,handlemodaldetails,filtervalue,not
         <td>{item.mincgpa}</td>
         <td>{item.award}</td>
         <td>{item.lastdate.slice(0,10)}</td>
-        <td><button className="btn btn-sm" disabled={!item.active || thisStudent.stcgpa<item.mincgpa || notallowed} style={{border:"0px"}} onClick={()=>handlemodaldetails(item)} onMouseOver={()=>sethover(true)} onMouseOut={()=>sethover(false)}><i className={`bi ${hover?"bi-arrow-right-circle-fill":"bi-arrow-right-circle"} fs-5`} id='bi'></i></button></td>
+        <td><button className="btn btn-sm" disabled={!item.active || thisStudent.stcgpa<item.mincgpa || notallowed || appliedlenght.length>0} style={{border:"0px"}} onClick={()=>handlemodaldetails(item)} onMouseOver={()=>sethover(true)} onMouseOut={()=>sethover(false)}><i className={`bi ${hover?"bi-arrow-right-circle-fill":"bi-arrow-right-circle"} fs-5`} id='bi'></i></button></td>
     </tr>}
     </>
   )

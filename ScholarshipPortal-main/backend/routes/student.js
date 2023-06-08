@@ -78,11 +78,12 @@ router.post('/addstudent', [
                 })
                 await sendVerificationEmail(studentdetails.email, studentdetails.verificationToken, studentdetails._id);
                 const createdUser = await studentdetails.save();
-                res.status(200).json({ data: createdUser, message: "user added success..." });
-                // const depdetails = dependant.create({
-                //     stid: studentdetails._id
-                // })
-                // console.log(depdetails)
+                const depdetails = dependant.create({
+                    stid: studentdetails._id
+                })
+                console.log(depdetails)
+                success = true
+                res.status(200).json({ data: createdUser,success: success, message: "user added success..." });
                 // const data = {
                 //     user: {
                 //         id: studentdetails._id
@@ -96,7 +97,7 @@ router.post('/addstudent', [
             }
         } catch (error) {
             console.log(error);
-            return res.status(500).json('Internal Server Error occured!');
+            return res.status(500).json({error:error,msg:'Internal Server Error occured!'});
         }
     }
 });
@@ -221,6 +222,8 @@ router.patch('/editstudent',[
                 console.log(error);
                 return res.status(500).json(acknowledged,'Internal Server Error occured!');
             }
+        }
+    })
 
 router.patch('/editstudent', [
     body('caption', 'caption length is too short').isLength({
@@ -305,21 +308,18 @@ router.patch('/updatestdocs', fetchuser, async (req, res) => {
                 });
             }
             success = true;
-            res.status(200).json(success,"Docs Updated Successfully");
+            res.status(400).json({success:success,msg:"Docs Updated Successfully"});
                 
             } catch (error) {
                 console.log(error);
                 success = false
-                return res.status(500).json(success,'Internal Server Error occured!');
+                return res.status(500).json('Internal Server Error occured!');
             }
-            res.json(success)
+            // res.json(success)
 
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json('Internal Server Error occured!');
-        }
-    }
-});
+        } 
+    });
+
 
 // delete docs 
 router.delete('/dltdocs', fetchuser, async (req, res) => {
@@ -343,18 +343,15 @@ router.delete('/dltdocs', fetchuser, async (req, res) => {
                     }
                 });
             }
-
-        success = true;
-        res.status(200).json(success,"Images deleted from cloudinary")
-            
+      
             success = true;
-            res.json("Images deleted from cloudinary with status: ", success)
+            res.json({msg:"Images deleted from cloudinary with status: ", success:success})
 
 
         } catch (error) {
             console.log(error);
             success = false
-            return res.status(500).json(success,'Internal Server Error occured!');
+            return res.status(500).json('Internal Server Error occured!');
         }
     }
 });
@@ -408,6 +405,7 @@ router.delete('/dltindstudent/:id', async (req,res)=>{
             console.log(error);
             return res.status(500).json({success:success,msg:'Internal Server Error occured!'});
         }
+    });
 router.delete('/dltindstudent/:id', async (req, res) => {
     try {
         const studentdata = await student.deleteOne({
@@ -420,4 +418,4 @@ router.delete('/dltindstudent/:id', async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = router

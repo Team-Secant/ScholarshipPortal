@@ -80,7 +80,7 @@ const UploadDoc = () => {
             toast.success("Documents Uploaded Successfully")
         }
         else{
-            toast.success("Some error occurred. Please try again!")
+            toast.error("Some error occurred. Please try again!")
         }
         spinnerref.current.classList.add("d-none")
     }

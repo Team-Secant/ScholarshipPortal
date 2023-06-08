@@ -74,9 +74,10 @@ export default function SSignUP2() {
     const json = await response.json()
     console.log("final form submitted: ",json)
     if(json.success){
-        localStorage.setItem("token",json.authtoken)
+        // localStorage.setItem("token",json.authtoken)
         spinnerref.current.classList.add("d-none")
-        navigate("/login");
+        toast.success("Signup Successful! Please check your Inbox for verification email.")
+        // navigate("/login");
     }
     else{
       spinnerref.current.classList.add("d-none")

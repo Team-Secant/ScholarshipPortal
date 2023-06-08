@@ -10,7 +10,7 @@ import InputLabel from '@mui/material/InputLabel';
 import { applicationcontext } from '../../context/ApplicationState';
 
 
-const Applicationitem = ({item,index,setdata,changestatus,setstatus}) => {
+const Applicationitem = ({item,index,setdata,changestatus,setstatus,searchval}) => {
 
     const theme = useTheme();
 
@@ -42,7 +42,7 @@ const Applicationitem = ({item,index,setdata,changestatus,setstatus}) => {
   return (
     <>
     
-    <tr style={{color:theme.palette.mode === "dark"&&theme.palette.grey[100]}}>
+    {((indst[0]?.fname.toLowerCase().includes(searchval.toLowerCase()) || indst[0]?.fname.toLowerCase().includes(searchval.toLowerCase()) ) && searchval !=="") &&<tr style={{color:theme.palette.mode === "dark"&&theme.palette.grey[100]}}>
         <th scope="row" style={{textAlign:"center"}}>{index+1}</th>
         <td><a href="/" onClick={()=>{setdata(indst[0])}} data-bs-toggle="modal"  data-bs-target="#exampleModal" style={{textDecoration:"none"}}>{indst[0]?.fname !== undefined? indst[0]?.fname:"Loading..."} {indst[0]?.lname}</a></td>
         <td>{indst[0]?.rollno !== undefined? indst[0]?.rollno:"Loading..."}</td>
@@ -63,23 +63,31 @@ const Applicationitem = ({item,index,setdata,changestatus,setstatus}) => {
                     <MenuItem value="Rejected" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Rejected",item._id)}}>Rejected</MenuItem>
                     </Select>
                 </FormControl>
-            {/* <FormControl>
-                <TextField
-                    id="outlined-select-currency"
-                    select
-                    // label={item?.status}
-                    name='status'
-                    style={{width:"100px"}}
-                    value={statusval.status}
-                    onChange={onValueChange}
-                >
-                    <MenuItem value="Pending">Pending</MenuItem>
-                    <MenuItem value="Approved">Approved</MenuItem>
-                    <MenuItem value="Rejected">Rejected</MenuItem>
-                </TextField>
-            </FormControl> */}
         </td>
-    </tr>
+    </tr>}
+    {( searchval ==="") &&<tr style={{color:theme.palette.mode === "dark"&&theme.palette.grey[100]}}>
+        <th scope="row" style={{textAlign:"center"}}>{index+1}</th>
+        <td><a href="/" onClick={()=>{setdata(indst[0])}} data-bs-toggle="modal"  data-bs-target="#exampleModal" style={{textDecoration:"none"}}>{indst[0]?.fname !== undefined? indst[0]?.fname:"Loading..."} {indst[0]?.lname}</a></td>
+        <td>{indst[0]?.rollno !== undefined? indst[0]?.rollno:"Loading..."}</td>
+        <td>{indsc?.name !== undefined? indsc?.name:"Loading..."}</td>
+        <td>{item?.date?.slice(0,10) !== undefined? item?.date?.slice(0,10) :"Loading..."}</td>
+        <td style={{width:"100px"}}>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    value={item.status}
+                    onChange={handleChange}
+                    label="Status"
+                    >
+                    <MenuItem value="Pending" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Pending",item._id)}}>Pending</MenuItem>
+                    <MenuItem value="Approved" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Approved",item._id)}}>Approved</MenuItem>
+                    <MenuItem value="Rejected" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Rejected",item._id)}}>Rejected</MenuItem>
+                    </Select>
+                </FormControl>
+        </td>
+    </tr>}
       
     </>
   )
