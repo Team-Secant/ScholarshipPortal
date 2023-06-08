@@ -42,6 +42,7 @@ import AnnouncementState from './context/AnnouncementState';
 import ScholarshipState from './context/Scholarshipstate';
 import ApplicationState from './context/ApplicationState';
 import PageNotExist from './components/PageNotExist';
+import Emailverification from './components/Emailverification';
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
             {/* { !localStorage.getItem('token') && <Route path="/" element={<Navigate to="/login" replace />} />} */   } 
             { <Route path="/" element={<Navigate to="/login" replace />} />}
             { <Route path="/*" element={<PageNotExist/>} />}
+            { <Route path="/email-verification/:id" element={<Emailverification/>} />}
 
               {/* {thisStudent?.usertype === "student" && <Route path="/" element={<Navigate to="/studentdashboard/home" replace />} />} */}
               <Route path="/studentdashboard/" element={<SideNav/>}>
