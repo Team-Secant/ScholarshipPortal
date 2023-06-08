@@ -190,7 +190,16 @@ const studentschema = new mongoose.Schema({
         type: String,
         required: true,
         default:"none"
+    },
+    verificationToken: {
+        type: String,
+        required: true    
+    },
+    isVerified : {
+        type: Boolean,
+        required: true
     }
+
     
 
 })
