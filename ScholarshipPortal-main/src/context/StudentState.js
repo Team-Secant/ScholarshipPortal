@@ -193,7 +193,7 @@ const [allst,setallst] = useState([]);
       });
       const json = await response.json()
       console.log(json)
-      return true
+      return json.success
       
     } catch (error) {
       console.log(error)
@@ -209,6 +209,17 @@ const [allst,setallst] = useState([]);
     else{
       // alert("please use correct email address")
       toast.error("Please use correct email address!")
+    }
+  }
+
+  const stSignup = (email,signupsubmit)=>{
+    const domain = email.split('@')
+    if(domain[1] === 'cloud.neduet.edu.pk'){
+      signupsubmit();
+    }
+    else{
+      // alert("please use correct email address")
+      toast.error("Please use Gsuit ID for Signup!")
     }
   }
 
@@ -250,7 +261,7 @@ const [allst,setallst] = useState([]);
   
 
   return (
-    <studentcontext.Provider value={{thisStudent,depinfo,fetchThisStudent,updateThisStudent,updatedepinfo,updateStDocs,dltStDocs,stlogin,stcredential,setstcredential,fetchallstudent,allst,fetchonestudent,fetchdepbystid,notallowed,checkinfofilled,dltindst}}>
+    <studentcontext.Provider value={{thisStudent,depinfo,fetchThisStudent,updateThisStudent,updatedepinfo,updateStDocs,dltStDocs,stlogin,stcredential,setstcredential,fetchallstudent,allst,fetchonestudent,fetchdepbystid,notallowed,checkinfofilled,dltindst,stSignup}}>
         {props.children}
     </studentcontext.Provider>
   )

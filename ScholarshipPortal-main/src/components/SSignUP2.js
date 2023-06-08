@@ -3,6 +3,8 @@ import { TextField, MenuItem,Checkbox } from "@mui/material";
 // import Button from "@mui/material/Button";
 import { studentcontext } from "../context/StudentState";
 import { useNavigate } from 'react-router-dom'
+import {toast } from 'react-toastify';
+
 
 export default function SSignUP2() {
 
@@ -39,7 +41,7 @@ export default function SSignUP2() {
     "Computer Science and Technology [TIEST]"
   ];
 
-  const {stcredential,setstcredential} = useContext(studentcontext)
+  const {stcredential,setstcredential,stSignup} = useContext(studentcontext)
   const navigate = useNavigate()
   const spinnerref = useRef();
   const [checked,setchecked] = useState(false)
@@ -58,9 +60,8 @@ export default function SSignUP2() {
     console.log(stcredential)
   }
   
-  const s2submithandler = async (e)=>{
+  const s2submithandler = async ()=>{
     spinnerref.current.classList.remove("d-none")
-    e.preventDefault();
     const url = `http://localhost:5000/student/addstudent`
       
     const response = await fetch(url, {
@@ -79,16 +80,19 @@ export default function SSignUP2() {
     }
     else{
       spinnerref.current.classList.add("d-none")
-        // document.getElementById("alert").classList.remove("d-none");
-        // setTimeout(()=>{
-        //   document.getElementById("alert").classList.add("d-none");
-        // },3000)
+      toast.error(json?.error !==undefined? json?.error:"Some Error Occurred. Please Try Again Later!")
     }
+    spinnerref.current.classList.add("d-none")
     
   }
 
+  const signuphandler = (e)=>{
+    e.preventDefault()
+    stSignup(stcredential.email,s2submithandler)
+  }
+
   return (
-    <form onSubmit={s2submithandler}>
+    <form onSubmit={signuphandler} action="submit">
     <div style={{height: "330px", overflowY: "scroll"}}>
       <h6 className="fs-5 fw-bold text-center">Fill this information</h6>
       <div className="container d-flex justify-content-center align-item-center flex-column">

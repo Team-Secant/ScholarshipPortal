@@ -36,7 +36,7 @@ export default function StudentSignIn() {
         <div className="col-sm-12 col-md-6 p-5">
           <div className="container row d-flex justify-content-center align-items-center">
             <div className="col-12 col-md-4 d-flex justify-content-end align-items-center">
-              <img className="img-fluid d-none d-md-flex" src={require('../asset/NEDLogo.png')} alt="" width="150px" height="150px"/> 
+              <img className="img-fluid d-none d-md-flex" src={require('../asset/gaditek.png')} alt="" width="150px" height="150px"/> 
             </div>
             <div className="col-12 col-md-4 d-flex justify-content-end align-items-center">
               <img className="img-fluid d-none d-md-flex" src={require('../asset/NEDLogo.png')} alt="" width="150px" height="150px"/> 

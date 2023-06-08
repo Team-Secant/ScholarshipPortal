@@ -11,14 +11,15 @@ const jwtseckey = `${process.env.JWT_SECRET_KEY}`;
 
 // signup
 router.post('/addfaculty',[
-    body('name','Please Enter Valid email').isLength({min:3}),
-    body('email','Please Enter Valid email').isEmail(),
-    body('password','Please Enter Valid email').isLength({min:5})
+    body('fname','Please enter valid first name').isLength({min:3}),
+    body('lname','Please enter valid last name').isLength({min:3}),
+    body('email','Please enter Valid email').isEmail(),
+    body('password','Minimum Password length is 5.').isLength({min:5})
 ], async (req,res)=>{
     let success = false
-    const error = validationResult(body);
+    const error = await validationResult(body);
     if(!error.isEmpty()){
-        return res.status(400).json({success, error:'Please enter details correctly'});
+        return res.status(400).json({success, error:error[1]});
     }
     else{
         try {
@@ -53,7 +54,7 @@ router.post('/addfaculty',[
             
         } catch (error) {
             console.log(error);
-            return res.status(500).json('Internal Server Error occured!');
+            return res.status(500).json({success:success,error:'Internal Server Error occured!'});
         }
     }
 });

@@ -15,6 +15,8 @@ import { countriescontext } from "../context/Countries";
 // import Button from "@mui/material/Button";
 import {NavLink, useNavigate} from 'react-router-dom';
 import PasswordStrength from "./PasswordStrength";
+import { toast } from 'react-toastify';
+
 
 export default function FacultySignUp() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -134,11 +136,7 @@ const checkpassstrength = (e)=>{
     }
     else{
       spinnerref.current.classList.add("d-none")
-      facalertref.current.classList.remove("d-none")
-      setTimeout(() => {
-        facalertref.current.classList.add("d-none")
-      }, 2000);
-      clearTimeout();
+      toast.error(json?.error? json?.error:"Some Error Occured! Please Try Again Later.")
     }
   }
 
@@ -229,7 +227,7 @@ const checkpassstrength = (e)=>{
                     <TextField sx={{ m: 1,flex:1}} label="Contact Number" name="contact" variant="filled" size="large" required pattern="^[0-9]{10}$" onChange={handlePhoneNumberChange} className="mx-2" />
                 </div>
 
-              <Alert className='d-none mt-1' ref={facalertref} severity="error">Some Error Occured! Please Try Again Later.</Alert>
+              {/* <Alert className='d-none mt-1' ref={facalertref} severity="error">Some Error Occured! Please Try Again Later.</Alert> */}
 
               <div className="container d-flex justify-content-center align-items-center">
                   <button className="btn btn-success d-flex justify-content-center align-items-center mx-5 my-3 w-50" type="submit">

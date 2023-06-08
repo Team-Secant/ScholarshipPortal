@@ -1,11 +1,13 @@
 import React, { useContext, useRef } from 'react'
 import { studentcontext } from '../context/StudentState';
+import { useNavigate } from 'react-router-dom'
 
 const Confirmationmodal = ({stid}) => {
     
 const {dltindst} = useContext(studentcontext);
     const dismiss = useRef(0);
     const spinnerref = useRef(0);
+    const navigate = useNavigate()
 
     const confirmdlt = async ()=>{
         spinnerref.current.classList.remove("d-none")
@@ -13,6 +15,8 @@ const {dltindst} = useContext(studentcontext);
         spinnerref.current.classList.add("d-none")
         if(check===true){
             dismiss.current.click();
+            navigate('/login')
+            localStorage.removeItem('token')
         }
     }
 

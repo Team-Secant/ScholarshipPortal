@@ -275,12 +275,14 @@ router.get('/getindstudent/:id', async (req,res)=>{
 });
 // dlt user
 router.delete('/dltindstudent/:id', async (req,res)=>{
+    let success = false
         try {
             const studentdata = await student.deleteOne({_id:req.params.id});
-            res.json(studentdata);
+            success = true
+            res.json({success:success,studentdata});
         } catch (error) {
             console.log(error);
-            return res.status(500).json('Internal Server Error occured!');
+            return res.status(500).json({success:success,msg:'Internal Server Error occured!'});
         }
 });
 
