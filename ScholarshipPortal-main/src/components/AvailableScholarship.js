@@ -33,6 +33,7 @@ const AvailableScholarship = () => {
   const myref = useRef(null);
   
   const thisstapplication = allapplication?.filter(element => {return element.stid === thisStudent._id})
+  const appliedlenght = allapplication?.filter(element => {return element.stid === thisStudent._id && element.status === "Approved"})
   const filteredScholarships = allscholarship?.filter(element => {return element.name.toLowerCase().includes(searchValue.toLowerCase())})
 
   const handlemodaldetails = (eachscitem)=>{
@@ -96,7 +97,7 @@ const AvailableScholarship = () => {
           </thead>
           <tbody>
           {filteredScholarships.map((item,index)=>{
-              return <AvailableScholarshipitem item={item} filtervalue={filtervalue} notallowed={notallowed} handlemodaldetails={handlemodaldetails} index={index} key={index}/>
+              return <AvailableScholarshipitem item={item} filtervalue={filtervalue} notallowed={notallowed} appliedlenght={appliedlenght} handlemodaldetails={handlemodaldetails} index={index} key={index}/>
             })}
           </tbody>
         </table>
