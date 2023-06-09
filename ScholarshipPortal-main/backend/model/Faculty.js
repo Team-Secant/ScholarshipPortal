@@ -38,6 +38,14 @@ const facultyschema = new mongoose.Schema({
     password:{
         type: String,
         required: true
+    },
+    verificationToken: {
+        type: String,
+        required: true    
+    },
+    isVerified : {
+        type: Boolean,
+        required: true
     }
 })
 

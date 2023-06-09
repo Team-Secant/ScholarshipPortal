@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 const faculty = require('../model/Faculty');
 const {body, validationResult} = require('express-validator');
 const router = express.Router();
-
+const generateVerificationToken = require('../utils/auth')
+const sendVerificationEmail = require('../helpers/Sendemail')
 const fetchuser = require('../middleware/fetchuserid')
 
 const jwtseckey = `${process.env.JWT_SECRET_KEY}`;
@@ -30,7 +31,8 @@ router.post('/addfaculty',[
             else{
                 const salt = await bcrypt.genSalt(10);
                 const secpass = await bcrypt.hash(req.body.password,salt);
-                const facultydetails = await faculty.create({
+                const verificationToken = generateVerificationToken();
+                const facultydetails = await faculty({
                     usertype: req.body.usertype,
                     fname: req.body.fname,
                     lname: req.body.lname,
@@ -39,25 +41,54 @@ router.post('/addfaculty',[
                     facdepart: req.body.facdepart,
                     contact: req.body.contact,
                     email: req.body.email,
-                    password: secpass
+                    password: secpass,
+                    verificationToken: verificationToken,
+                    isVerified: false
                 })
-
-                const data = {
-                    user: {
-                        id: facultydetails._id
-                    }
-                }
+                await sendVerificationEmail(facultydetails.email, facultydetails.verificationToken, facultydetails._id,facultydetails.usertype);
+                const createdUser = await facultydetails.save();
                 success = true
-                const authtoken = jwt.sign(data,jwtseckey)
-                res.json({success,authtoken});
+                res.status(200).json({ data: createdUser,success: success, message: "user added success..." });
+                // const data = {
+                //     user: {
+                //         id: facultydetails._id
+                //     }
+                // }
+                // success = true
+                // const authtoken = jwt.sign(data,jwtseckey)
+                // res.json({success,authtoken});
             }
             
         } catch (error) {
             console.log(error);
-            return res.status(500).json({success:success,error:'Internal Server Error occured!'});
+            return res.status(500).json({error:error,msg:'Internal Server Error occured!'});
         }
     }
 });
+
+//Email Verification
+router.get('/verify/:id', async (req, res) => {
+    try {
+        console.log(req.params.id)
+        const user = await faculty.findOne({
+            _id: req.params.id
+        });
+        if (!user) return res.status(400).json("Invalid link");
+        await faculty.findByIdAndUpdate({
+            _id: user._id
+        }, {
+            isVerified: true
+        });
+        res.status(200).json({
+            message: "Your email has been verified successfully"
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({
+            message: "error"
+        });
+    }
+})
 
 // login
 router.post('/login',[
@@ -73,6 +104,9 @@ router.post('/login',[
             const facultydata = await faculty.findOne({email:req.body.email,cnic:req.body.cnic})
             if(!facultydata){
                 return res.status(400).json({success, error:'Please enter correct credentials'})
+            }
+            if (!facultydata.isVerified) {
+                return res.status(400).json({ success: false, error: true, message: "Please verify your email" })
             }
             else{
                 const pw = await bcrypt.compare(req.body.password,facultydata.password)

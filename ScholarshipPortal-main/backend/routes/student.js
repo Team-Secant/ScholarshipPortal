@@ -76,7 +76,7 @@ router.post('/addstudent', [
                     verificationToken: verificationToken,
                     isVerified: false
                 })
-                await sendVerificationEmail(studentdetails.email, studentdetails.verificationToken, studentdetails._id);
+                await sendVerificationEmail(studentdetails.email, studentdetails.verificationToken, studentdetails._id,studentdetails.usertype);
                 const createdUser = await studentdetails.save();
                 const depdetails = dependant.create({
                     stid: studentdetails._id

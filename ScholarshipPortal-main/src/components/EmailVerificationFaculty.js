@@ -8,7 +8,7 @@ import axios from "axios";
 // import Orders from '../assets/order.svg'
 // import Logo from '../assets/check.svg'
 
-export default function EmailVerification() {
+export default function EmailVerificationFaculty() {
 
     const { id } = useParams()
     const [message, setMessage] = useState()
@@ -21,7 +21,7 @@ export default function EmailVerification() {
 
     const signinsubmit = async ()=>{  
         console.log(id)     
-        const url = `http://localhost:5000/student/verify/${id}`
+        const url = `http://localhost:5000/faculty/verify/${id}`
           
             const response = await fetch(url, {
                 method: 'GET',

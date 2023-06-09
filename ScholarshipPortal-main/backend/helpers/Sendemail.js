@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-const sendVerificationEmail = async (to, token, id) => {
+const sendVerificationEmail = async (to, token, id,type) => {
     console.log(to, token);
     try {
         const transporter = nodemailer.createTransport({
@@ -17,7 +17,7 @@ const sendVerificationEmail = async (to, token, id) => {
             from: "teamsecant@gmail.com",
             to: to,
             subject: 'Verify Your Account',
-            html: `<p>Please click the following link to verify your account:</p><p><a href="http://localhost:3000/email-verification/${id}">Verify Now`
+            html: `<p>Please click the following link to verify your account:</p><p><a href="http://localhost:3000/${type}/email-verification/${id}">Verify Now`
         });
         console.log("Email sent");
     } catch (error) {
