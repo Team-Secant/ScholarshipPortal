@@ -1,21 +1,31 @@
 import React, { useContext, useRef } from 'react'
 import { applicationcontext } from '../../context/ApplicationState';
+// import { studentcontext } from '../../context/StudentState';
+import {toast } from 'react-toastify';
 
-const ConfirmationModal = ({status,id}) => {
+
+const ConfirmationModal = ({status,id,email}) => {
 
     const {editapplication} = useContext(applicationcontext);
     const dismiss = useRef(0);
     const spinnerref = useRef(0);
     const confirmupdate = async ()=>{
+        console.log(email)
         spinnerref.current.classList.remove("d-none")
-        let check = await editapplication(status, id);
+        let check = await editapplication(status,id,email);
         spinnerref.current.classList.add("d-none")
         if(check===true){
             dismiss.current.click();
         }else{
             spinnerref.current.classList.add("d-none")
+            toast.error("Some Error Occured! Please try again later.")
         }
     }
+
+    // useEffect(()=>{
+    //     fetchThisStudent();
+    //     // eslint-disable-next-line
+    // },[])
 
   return (
     <>

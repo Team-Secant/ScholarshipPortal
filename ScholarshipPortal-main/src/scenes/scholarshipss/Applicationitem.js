@@ -58,9 +58,9 @@ const Applicationitem = ({item,index,setdata,changestatus,setstatus,searchval}) 
                     onChange={handleChange}
                     label="Status"
                     >
-                    <MenuItem value="Pending" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Pending",item._id)}}>Pending</MenuItem>
-                    <MenuItem value="Approved" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Approved",item._id)}}>Approved</MenuItem>
-                    <MenuItem value="Rejected" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Rejected",item._id)}}>Rejected</MenuItem>
+                    <MenuItem value="Pending" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Pending",item._id,indst[0]?.email)}}>Pending</MenuItem>
+                    <MenuItem value="Approved" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Approved",item._id,indst[0]?.email)}}>Approved</MenuItem>
+                    <MenuItem value="Rejected" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Rejected",item._id,indst[0]?.email)}}>Rejected</MenuItem>
                     </Select>
                 </FormControl>
         </td>
@@ -81,9 +81,9 @@ const Applicationitem = ({item,index,setdata,changestatus,setstatus,searchval}) 
                     onChange={handleChange}
                     label="Status"
                     >
-                    <MenuItem value="Pending" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Pending",item._id)}}>Pending</MenuItem>
-                    <MenuItem value="Approved" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Approved",item._id)}}>Approved</MenuItem>
-                    <MenuItem value="Rejected" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Rejected",item._id)}}>Rejected</MenuItem>
+                    <MenuItem value="Pending" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Pending",item._id,indst[0]?.email)}}>Pending</MenuItem>
+                    <MenuItem value="Approved" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Approved",item._id,indst[0]?.email)}}>Approved</MenuItem>
+                    <MenuItem value="Rejected" data-bs-toggle="modal" data-bs-target="#appsmodal" onClick={()=>{changestatus("Rejected",item._id,indst[0]?.email)}}>Rejected</MenuItem>
                     </Select>
                 </FormControl>
         </td>

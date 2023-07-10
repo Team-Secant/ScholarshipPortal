@@ -49,7 +49,7 @@ const ApplicationState = (props) => {
         console.log(json)
   }
   
-  const editapplication = async (appstatus,id)=>{
+  const editapplication = async (appstatus,id,stemail)=>{
     const url = `${commonRoute}/updateapplication/${id}`
       try { 
         const response = await fetch(url, {
@@ -57,7 +57,7 @@ const ApplicationState = (props) => {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({status: appstatus})
+            body: JSON.stringify({status: appstatus, email:stemail})
         });
         const json = await response.json()
         console.log(json)

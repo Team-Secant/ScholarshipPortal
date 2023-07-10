@@ -23,6 +23,7 @@ const Transactions = () => {
     const [data, setdata] = useState({});
     const [status,setstatus] = useState('');
     const [appid,setappid] = useState('');
+    const [email,setemail] = useState('');
 
     const handlefilter = ()=>{
         let filter = document.getElementById("filter1")
@@ -43,9 +44,10 @@ const Transactions = () => {
         fetchallapp();
     },[])
 
-    const changestatus = (status,id)=>{
+    const changestatus = (status,id,email)=>{
         setstatus(status); 
         setappid(id);
+        setemail(email);
     }
     
     // const filteredapplication = allapplication.filter(element => {return element.fname.toLowerCase().includes(searchValue.toLowerCase()) || element.lname.toLowerCase().includes(searchValue.toLowerCase()) || element.cnic.includes(searchValue)})
@@ -61,7 +63,7 @@ const Transactions = () => {
                 <span class="input-group-text" id="basic-addon1" style={{backgroundColor:"transparent",border:"0px"}}><i class="bi bi-search"></i></span>
                 <input style={{backgroundColor:"transparent",border:"0px"}} type="text" value={searchValue} onChange={handleSearch} class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1"/>
             </div> */}
-            <ConfirmationModal status={status} id={appid}/>
+            <ConfirmationModal status={status} id={appid} email={email}/>
             <Box component="main" sx={{ flexGrow: 1}} className='container d-flex flex-row my-2'>
                 <div className="input-group mx-2 my-2" style={{borderRadius:"20px"}}>
                 <span className="input-group-text" id="basic-addon1" style={{backgroundColor:"transparent",border:"0px"}}><i className="bi bi-search"></i></span>

@@ -2,6 +2,8 @@ const express = require('express');
 const application = require('../model/AppliedSc');
 const router = express.Router();
 const fetchuser = require('../middleware/fetchuserid')
+const student = require('../model/Student');
+const sendStatusEmail = require('../helpers/SendStatusmail');
 
 
 // add application
@@ -35,8 +37,9 @@ router.patch('/updateapplication/:id', async (req,res)=>{
 
     try {
         const adminapplication = await application.findById(req.params.id)
-        const result = await adminapplication.updateOne(req.body)
+        const result = await adminapplication.updateOne({status:req.body.status})
         res.json(result)
+        await sendStatusEmail(req.body.email,req.body.status)
         
     } catch (error) {
         console.log(error);
